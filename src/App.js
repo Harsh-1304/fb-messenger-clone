@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Button,FormControl,Input} from '@material-ui/core';
+import InputLabel from '@material-ui/core/InputLabel';
+//import {} from '@material-ui/core/FormControl';
 import './App.css';
 
 function App() {
@@ -8,6 +11,9 @@ function App() {
 
 
     const sendMessages = (event) => {
+
+        event.preventDefault();             // To prevent from the refresh;
+
         setMesseges([...messages, input]);
         setInput('');
     }
@@ -16,8 +22,24 @@ function App() {
         <div className="App">
             <h1>Hello Programmers</h1>
 
-            <input value={input} onChange={event => setInput(event.target.value)} />
-            <button onClick={sendMessages}>Send Messege</button>
+            <FormControl>
+                <InputLabel>Enter a Message.....</InputLabel>
+                <Input value={input} onChange={event => setInput(event.target.value)}/>
+                <Button disabled={!input} varient="contained" color="primary" type='submit' onClick={sendMessages}>Send Messege</Button>
+
+            </FormControl>
+            {/* <form>
+                <input />
+            </form> */}
+
+
+            {/* Messages Displaying */}
+
+            {
+                messages.map((message) => {
+                    return <p> {message} </p>
+                })
+            }
         </div>
     );
 }
