@@ -7,6 +7,8 @@ import './App.css';
 import db from './firebase';
 import Flipmove from 'react-flip-move';
 import firebase from 'firebase';
+import SendIcon from '@material-ui/icons/Send';
+import { IconButton } from '@material-ui/core';
 
 function App() {
 
@@ -45,15 +47,33 @@ function App() {
     //  console.log(messages);
     return (
         <div className="App">
+            <img
+                src="https://www.facebookbrand.com/wp-content/uploads/2018/09/Header-e1538151782912.png?w=100&h=100"
+                alt="logo"
+            />
             <h1>Hello Programmers</h1>
             <h2>Welcome {username} </h2>
+            <form className="app__form">
+                <FormControl className="app__formControl">
+                    <Input
+                        className="app__input"
+                        placeholder="Enter a message..."
+                        value={input}
+                        onChange={(event) => setInput(event.target.value)}
+                    />
+                    <IconButton
+                        className="app__iconButton"
+                        disabled={!input}
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        onClick={sendMessages}
+                    >
+                        <SendIcon />
+                    </IconButton>
+                </FormControl>
+            </form>
 
-            <FormControl>
-                <InputLabel>Enter a Message.....</InputLabel>
-                <Input value={input} onChange={event => setInput(event.target.value)} />
-                <Button disabled={!input} varient="contained" color="primary" type='submit' onClick={sendMessages}>Send Messege</Button>
-
-            </FormControl>
             {/* <form>
                 <input />
             </form> */}
@@ -62,8 +82,8 @@ function App() {
             {/* Messages Displaying */}
             <Flipmove>
                 {
-                    messages.map(({id, message} ) => (
-                        <Messages key={id} messages={message}  username={username} />
+                    messages.map(({ id, message }) => (
+                        <Messages key={id} messages={message} username={username} />
                     ))
                 }
             </Flipmove>
